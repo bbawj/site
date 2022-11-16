@@ -1,0 +1,199 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="TypeScript TypeScript is a superset of JavaScript, with all the features of JavaScript + a type checking layer.
+Why TypeScript TypeScript helps to combat common errors:"><title>TypeScript</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://bbawj.github.io/site//icon.png><link href=https://bbawj.github.io/site/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://bbawj.github.io/site/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://bbawj.github.io/site/js/darkmode.604858f0be6a961da2204cc761cc89c4.min.js></script>
+<script src=https://bbawj.github.io/site/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://bbawj.github.io/site/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://bbawj.github.io/site/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://bbawj.github.io/site/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://bbawj.github.io/site/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://bbawj.github.io/site/",fetchData=Promise.all([fetch("https://bbawj.github.io/site/indices/linkIndex.e88aeb41490f166979d8b7db55da5657.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://bbawj.github.io/site/indices/contentIndex.e11f73e49b627214ecd6a942c36586d4.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://bbawj.github.io/site",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!0;drawGraph("https://bbawj.github.io/site",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/bbawj.github.io\/site\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://bbawj.github.io/site/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://bbawj.github.io/site/>bbawj.io</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>TypeScript</h1><p class=meta>Last updated
+Unknown
+<a href=https://github.com/bbawj/site/Notes/TypeScript.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#why-typescript>Why TypeScript</a></li><li><a href=#defining-types>Defining Types</a><ol><li></li></ol></li><li><a href=#composing-types>Composing Types</a><ol><li></li></ol></li><li><a href=#structural-type-system>Structural Type System</a></li><li><a href=#type-assertions>Type Assertions</a></li><li><a href=#literal-types>Literal Types</a><ol><li></li></ol></li></ol></nav></details></aside><a href=#typescript><h1 id=typescript><span class=hanchor arialabel=Anchor># </span>TypeScript</h1></a><p>TypeScript is a superset of JavaScript, with all the features of JavaScript + a type checking layer.</p><a href=#why-typescript><h2 id=why-typescript><span class=hanchor arialabel=Anchor># </span>Why TypeScript</h2></a><p>TypeScript helps to combat common errors:</p><ol><li>Uncalled Functions:</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>flipCoin() {</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Meant to be Math.random()
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=k>return</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>random</span> <span class=o>&lt;</span> <span class=mf>0.5</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=c1>//Operator &#39;&lt;&#39; cannot be applied to types &#39;() =&gt; number&#39; and &#39;number&#39;.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>Logic errors</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>value</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>random</span><span class=p>()</span> <span class=o>&lt;</span> <span class=mf>0.5</span> <span class=o>?</span> <span class=s2>&#34;a&#34;</span> <span class=o>:</span> <span class=s2>&#34;b&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=nx>value</span> <span class=o>!==</span> <span class=s2>&#34;a&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>value</span> <span class=o>===</span> <span class=s2>&#34;b&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>//This condition will always return &#39;false&#39; since the types &#39;&#34;a&#34;&#39; and &#39;&#34;b&#34;&#39; have no         
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1>//overlap.
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1>// Oops, unreachable
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#defining-types><h2 id=defining-types><span class=hanchor arialabel=Anchor># </span>Defining Types</h2></a><a href=#type-inference><h4 id=type-inference><span class=hanchor arialabel=Anchor># </span>Type Inference</h4></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>helloworld</span> <span class=o>=</span> <span class=s2>&#34;Hello World&#34;</span> <span class=c1>//typescript uses the value as its type
+</span></span></span></code></pre></td></tr></table></div></div><p>This is in contrast to Java which types have to be explicitly defined:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>String</span> <span class=n>name</span> <span class=o>=</span> <span class=s>&#34;John&#34;</span><span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#type-aliases><h4 id=type-aliases><span class=hanchor arialabel=Anchor># </span>Type Aliases</h4></a><p>A name for any type</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>type</span> <span class=nx>Point</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>x</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>y</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>type</span> <span class=nx>ID</span> <span class=o>=</span> <span class=kt>number</span> <span class=o>|</span> <span class=kt>string</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#type-interfaces><h4 id=type-interfaces><span class=hanchor arialabel=Anchor># </span>Type Interfaces</h4></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>interface</span> <span class=nx>User</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>name</span>: <span class=kt>string</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>id</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>OOP type annotations:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>class</span> <span class=nx>UserAccount</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>name</span>: <span class=kt>string</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>id</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>  <span class=kr>constructor</span><span class=p>(</span><span class=nx>name</span>: <span class=kt>string</span><span class=p>,</span> <span class=nx>id</span>: <span class=kt>number</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=nx>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>id</span> <span class=o>=</span> <span class=nx>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>user</span>: <span class=kt>User</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>UserAccount</span><span class=p>(</span><span class=s2>&#34;Murphy&#34;</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>__An interface is always extendable but an alias is not open for extension:
+<img src=https://i.imgur.com/ioFZmoM.png width=auto alt></p><a href=#composing-types><h2 id=composing-types><span class=hanchor arialabel=Anchor># </span>Composing Types</h2></a><a href=#unions><h4 id=unions><span class=hanchor arialabel=Anchor># </span>Unions</h4></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>type</span> <span class=nx>WindowStates</span> <span class=o>=</span> <span class=s2>&#34;open&#34;</span> <span class=o>|</span> <span class=s2>&#34;closed&#34;</span> <span class=o>|</span> <span class=s2>&#34;minimized&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>type</span> <span class=nx>LockStates</span> <span class=o>=</span> <span class=s2>&#34;locked&#34;</span> <span class=o>|</span> <span class=s2>&#34;unlocked&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>type</span> <span class=nx>PositiveOddNumbersUnderTen</span> <span class=o>=</span> <span class=mi>1</span> <span class=o>|</span> <span class=mi>3</span> <span class=o>|</span> <span class=mi>5</span> <span class=o>|</span> <span class=mi>7</span> <span class=o>|</span> <span class=mi>9</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>getLength</span><span class=p>(</span><span class=nx>obj</span>: <span class=kt>string</span> <span class=o>|</span> <span class=kt>string</span><span class=p>[])</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>obj</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>TypeScript will only allow an operation if it is valid for every member of the union. For example, if you have the union <code>string | number</code>, you can’t use methods that are only available on string. Use <code>typeof &lt;x> === "&lt;type>"</code> to check for types before calling type specific methods.</p><a href=#types-with-generics><h4 id=types-with-generics><span class=hanchor arialabel=Anchor># </span>Types with Generics</h4></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>interface</span> <span class=nx>Backpack</span><span class=p>&lt;</span><span class=nt>Type</span><span class=p>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>add</span><span class=o>:</span> <span class=p>(</span><span class=nx>obj</span>: <span class=kt>Type</span><span class=p>)</span> <span class=o>=&gt;</span> <span class=k>void</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kr>get</span><span class=o>:</span> <span class=p>()</span> <span class=o>=&gt;</span> <span class=nx>Type</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1>// This line is a shortcut to tell TypeScript there is a
+</span></span></span><span class=line><span class=cl><span class=c1>// constant called `backpack`, and to not worry about where it came from.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>declare</span> <span class=kr>const</span> <span class=nx>backpack</span>: <span class=kt>Backpack</span><span class=p>&lt;</span><span class=nt>string</span><span class=p>&gt;;</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1>// object is a string, because we declared it above as the variable part of Backpack.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=kt>object</span> <span class=o>=</span> <span class=nx>backpack</span><span class=p>.</span><span class=kr>get</span><span class=p>();</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=c1>// Since the backpack variable is a string, you can&#39;t pass a number to the add function.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>backpack</span><span class=p>.</span><span class=nx>add</span><span class=p>(</span><span class=mi>23</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#structural-type-system><h2 id=structural-type-system><span class=hanchor arialabel=Anchor># </span>Structural Type System</h2></a><p><em>In a structural type system, if two objects have the same shape, they are considered to be of the same type.</em></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>interface</span> <span class=nx>Point</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>x</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>y</span>: <span class=kt>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>logPoint</span><span class=p>(</span><span class=nx>p</span>: <span class=kt>Point</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>p</span><span class=p>.</span><span class=nx>x</span><span class=si>}</span><span class=sb>, </span><span class=si>${</span><span class=nx>p</span><span class=p>.</span><span class=nx>y</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>point3</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>x</span>: <span class=kt>12</span><span class=p>,</span> <span class=nx>y</span>: <span class=kt>26</span><span class=p>,</span> <span class=nx>z</span>: <span class=kt>89</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>logPoint</span><span class=p>(</span><span class=nx>point3</span><span class=p>);</span> <span class=c1>// logs &#34;12, 26&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span> 
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>rect</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>x</span>: <span class=kt>33</span><span class=p>,</span> <span class=nx>y</span>: <span class=kt>3</span><span class=p>,</span> <span class=nx>width</span>: <span class=kt>30</span><span class=p>,</span> <span class=nx>height</span>: <span class=kt>80</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>logPoint</span><span class=p>(</span><span class=nx>rect</span><span class=p>);</span> <span class=c1>// logs &#34;33, 3&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span> 
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>color</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>hex</span><span class=o>:</span> <span class=s2>&#34;#187ABF&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>logPoint</span><span class=p>(</span><span class=nx>color</span><span class=p>);</span> <span class=c1>//fails as x and y are missing
+</span></span></span></code></pre></td></tr></table></div></div><p>An object need only to match all the type attributes for the code to pass (can have more but not less).</p><a href=#type-assertions><h2 id=type-assertions><span class=hanchor arialabel=Anchor># </span>Type Assertions</h2></a><p>Sometimes you will have information about the type of a value that TypeScript can’t know about.</p><p>For example, if you’re using <code>document.getElementById</code>, TypeScript only knows that this will return <em>some</em> kind of <code>HTMLElement</code>, but you might know that your page will always have an <code>HTMLCanvasElement</code> with a given ID.</p><p>In this situation, you can use a <em>type assertion</em> to specify a more specific type: <code>const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;</code></p><p>Angle-bracket syntax (except if the code is in a <code>.tsx</code> file), which is equivalent: <code>const myCanvas = &lt;HTMLCanvasElement>document.getElementById("main_canvas");</code></p><blockquote class=reminder-callout><p>Runtime behaviour
+Because type assertions are removed at compile-time, there is no runtime checking associated with a type assertion. There won’t be an exception or <code>null</code> generated if the type assertion is wrong.</p></blockquote><p>TypeScript only allows type assertions which convert to a <em>more specific</em> or <em>less specific</em> version of a type. This rule prevents “impossible” coercions like: <code>const x = "hello" as number;</code></p><p>This rule can be too conservative and will disallow more complex coercions that might be valid. You can use two assertions, first to <code>any</code> or <code>unknown</code>,then to the desired type:
+<code>const a = (expr as any) as T;</code></p><a href=#literal-types><h2 id=literal-types><span class=hanchor arialabel=Anchor># </span>Literal Types</h2></a><p>The types used in the union above include some literals e.g. &ldquo;locked&rdquo;, 1</p><a href=#literal-inference-or-lack-thereof><h4 id=literal-inference-or-lack-thereof><span class=hanchor arialabel=Anchor># </span>Literal Inference (or lack thereof):</h4></a><p>When you initialize a variable with an object, TypeScript assumes that the properties of that object might change values later.</p><p><code>req.method</code> must have the type <code>string</code>, not <code>"GET"</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>req</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>url</span><span class=o>:</span> <span class=s2>&#34;https://example.com&#34;</span><span class=p>,</span> <span class=nx>method</span><span class=o>:</span> <span class=s2>&#34;GET&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>handleRequest</span><span class=p>(</span><span class=nx>req</span><span class=p>.</span><span class=nx>url</span><span class=p>,</span> <span class=nx>req</span><span class=p>.</span><span class=nx>method</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl><span class=c1>//error out as type &#39;string&#39; is not assignable to parameter of type &#39;&#34;GET&#34; | &#34;POST&#34;&#39; for req.method.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// Change 1:
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>req</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>url</span><span class=o>:</span> <span class=s2>&#34;https://example.com&#34;</span><span class=p>,</span> <span class=nx>method</span><span class=o>:</span> <span class=s2>&#34;GET&#34;</span> <span class=kr>as</span> <span class=s2>&#34;GET&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Change 2
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>handleRequest</span><span class=p>(</span><span class=nx>req</span><span class=p>.</span><span class=nx>url</span><span class=p>,</span> <span class=nx>req</span><span class=p>.</span><span class=nx>method</span> <span class=kr>as</span> <span class=s2>&#34;GET&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/site/006-Tools/ data-ctx=TypeScript data-src=/006-Tools class=internal-link>006 Tools</a></li><li><a href=/site/Notes/Angular/ data-ctx=TypeScript data-src=/Notes/Angular class=internal-link>Angular</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://bbawj.github.io/site/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Brendan Ang using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://bbawj.github.io/site/>Home</a></li><li><a href=https://github.com/bbawj>Github</a></li></ul></footer></div></div></body></html>

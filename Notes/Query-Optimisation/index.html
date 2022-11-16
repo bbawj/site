@@ -1,0 +1,256 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="Query Optimisation Algebraic Laws for Improving Query Plans Laws Involving Join  Converting Selection and Product to Joins  Laws Involving Selection  If R is not a set (it is a bag which can contain duplicates) then the union operation will not eliminate duplicates correctly."><title>Query Optimisation</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://bbawj.github.io/site//icon.png><link href=https://bbawj.github.io/site/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://bbawj.github.io/site/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://bbawj.github.io/site/js/darkmode.604858f0be6a961da2204cc761cc89c4.min.js></script>
+<script src=https://bbawj.github.io/site/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://bbawj.github.io/site/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://bbawj.github.io/site/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://bbawj.github.io/site/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://bbawj.github.io/site/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://bbawj.github.io/site/",fetchData=Promise.all([fetch("https://bbawj.github.io/site/indices/linkIndex.e88aeb41490f166979d8b7db55da5657.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://bbawj.github.io/site/indices/contentIndex.e11f73e49b627214ecd6a942c36586d4.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://bbawj.github.io/site",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!0;drawGraph("https://bbawj.github.io/site",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/bbawj.github.io\/site\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://bbawj.github.io/site/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://bbawj.github.io/site/>bbawj.io</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Query Optimisation</h1><p class=meta>Last updated
+Unknown
+<a href=https://github.com/bbawj/site/Notes/Query%20Optimisation.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#algebraic-laws-for-improving-query-plans>Algebraic Laws for Improving Query Plans</a><ol><li><a href=#laws-involving-join>Laws Involving Join</a></li><li><a href=#laws-involving-selection>Laws Involving Selection</a></li><li><a href=#projection-laws>Projection Laws</a></li></ol></li><li><a href=#logical-query-plan>Logical Query Plan</a><ol><li><a href=#optimising-the-operator-tree>Optimising the Operator Tree</a></li></ol></li><li><a href=#physical-query-plan>Physical Query Plan</a><ol><li><a href=#cost-estimation>Cost estimation</a></li><li><a href=#join-order-selection>Join Order Selection</a></li><li><a href=#join-algorithm-selection>Join Algorithm Selection</a></li></ol></li><li><a href=#practice-problems>Practice Problems</a></li></ol></nav></details></aside><a href=#query-optimisation><h1 id=query-optimisation><span class=hanchor arialabel=Anchor># </span>Query Optimisation</h1></a><a href=#algebraic-laws-for-improving-query-plans><h2 id=algebraic-laws-for-improving-query-plans><span class=hanchor arialabel=Anchor># </span>Algebraic Laws for Improving Query Plans</h2></a><a href=#laws-involving-join><h3 id=laws-involving-join><span class=hanchor arialabel=Anchor># </span>Laws Involving Join</h3></a><p><img src=https://i.imgur.com/oDq81HA.png width=auto alt></p><a href=#converting-selection-and-product-to-joins><h4 id=converting-selection-and-product-to-joins><span class=hanchor arialabel=Anchor># </span>Converting Selection and Product to Joins</h4></a><p><img src=https://i.imgur.com/sGg1CNA.png width=auto alt></p><a href=#laws-involving-selection><h3 id=laws-involving-selection><span class=hanchor arialabel=Anchor># </span>Laws Involving Selection</h3></a><p><img src=https://i.imgur.com/I95RFp3.png width=auto alt>
+If R is not a set (it is a bag which can contain duplicates) then the union operation will not eliminate duplicates correctly.</p><a href=#pushing-selection><h4 id=pushing-selection><span class=hanchor arialabel=Anchor># </span>Pushing selection</h4></a><p><img src=https://i.imgur.com/3pmPzmA.png width=auto alt>
+<img src=https://i.imgur.com/q584Z29.png width=auto alt></p><a href=#projection-laws><h3 id=projection-laws><span class=hanchor arialabel=Anchor># </span>Projection Laws</h3></a><p>Pushing projection is less useful than pushing selection. This is because projection keeps the number of tuples the same and only reduces the length of the tuples.</p><blockquote class="[! basic idea:]-callout"><p>[! Basic idea:]
+can introduce a projection anywhere in an expression tree, as long as it eliminates only attributes that are neither used by an operator above nor are in the result of the entire expression.</p></blockquote><p><img src=https://i.imgur.com/kMU6jVT.png width=auto alt></p><a href=#logical-query-plan><h2 id=logical-query-plan><span class=hanchor arialabel=Anchor># </span>Logical Query Plan</h2></a><p>Use of operator trees to represent the execution plan.
+<img src=https://i.imgur.com/pg8oQVv.png width=auto alt></p><a href=#optimising-the-operator-tree><h3 id=optimising-the-operator-tree><span class=hanchor arialabel=Anchor># </span>Optimising the Operator Tree</h3></a><p>We can use the algebraic laws to devise a more optimal logical query plan.
+<img src=https://i.imgur.com/2VYfLtr.png width=auto alt>
+<img src=https://i.imgur.com/KlplmiL.png width=auto alt>
+<img src=https://i.imgur.com/jjASNOH.png width=auto alt>
+<img src=https://i.imgur.com/t4dBrQc.png width=auto alt></p><a href=#physical-query-plan><h2 id=physical-query-plan><span class=hanchor arialabel=Anchor># </span>Physical Query Plan</h2></a><p>A physical query plan are the actions for which to execute the logical query plan.
+It includes:</p><ul><li>Order and grouping of operations</li><li><a href=/site/Notes/Query-Processing/ rel=noopener class=internal-link data-src=/site/Notes/Query-Processing/>Algorithms for each operator</a></li><li><a href=/site/Notes/Query-Execution/ rel=noopener class=internal-link data-src=/site/Notes/Query-Execution/>Argument passing from operator to operator: pipelining vs materialisation</a>
+We need a way to make choices for each of these components.</li></ul><a href=#cost-estimation><h3 id=cost-estimation><span class=hanchor arialabel=Anchor># </span>Cost estimation</h3></a><p>The cost of a plan is the sum of the cost of each operator in the tree. However, to know the cost of an operator often requires the input sizes to be known. This is often not available for intermediary operators which are executed after other operators such as <code>SELECT</code> are done.
+Assumptions:</p><ol><li>Uniform distribution of values in domain</li><li>Independent distribution of values in different columns</li><li>Independence of predicates for select and join
+<img src=https://i.imgur.com/69FO4mE.png width=auto alt></li></ol><a href=#estimating-selection><h4 id=estimating-selection><span class=hanchor arialabel=Anchor># </span>Estimating Selection</h4></a><p><img src=https://i.imgur.com/kLBr1UB.png width=auto alt>
+3 is used as an intuition for how a range operation would usually return less than half of all the tuples.
+<img src=https://i.imgur.com/vQPnDLO.png width=auto alt>
+For negation, we can estimate all tuples in the relation to satisfy the condition. Alternatively, notice that the number of distinct tuples that satisfy the relation is equal to $V(R,A)-1$
+<img src=https://i.imgur.com/kqmLVen.png width=auto alt>
+Notice that the equation relates to converting an OR relation into an equivalent AND notation. $A|B=!(!A \cap !B)$<br><img src=https://i.imgur.com/oVNvTd7.png width=auto alt></p><a href=#estimating-joins><h4 id=estimating-joins><span class=hanchor arialabel=Anchor># </span>Estimating Joins</h4></a><p>Assumptions:
+<img src=https://i.imgur.com/c5Vnm56.png width=auto alt></p><ul><li>Containment of value: satisfied when Y is a key in S and the corresponding foreign key in R. Approximately true due to probability since if Y appears in S, it is likely to appear in R as well since S is large.</li><li>Preservation: violated when there are tuples in R which join with no tuples in S.
+<img src=https://i.imgur.com/y5mkPC7.png width=auto alt>
+<img src=https://i.imgur.com/EAwXdkf.png width=auto alt>
+<img src=https://i.imgur.com/oPDMzqE.png width=auto alt></li></ul><a href=#using-statistics><h4 id=using-statistics><span class=hanchor arialabel=Anchor># </span>Using Statistics</h4></a><p>The assumption of uniform distribution is not accurate since real data is not uniformly distributed.
+We can maintain a histogram for each relation to help us improve the estimation:
+<img src=https://i.imgur.com/PcMR1ga.png width=auto alt>
+Statistics from each bucket can be used to determine the number of tuples in a range:
+<img src=https://i.imgur.com/HPXoFGg.png width=auto alt>
+Example:
+<img src=https://i.imgur.com/Tou8AKE.png width=auto alt>
+Example for join:
+<img src=https://i.imgur.com/1iQ4kdj.png width=auto alt>
+Sampling can be used to increase performance:
+<img src=https://i.imgur.com/lE0yNfb.png width=auto alt></p><a href=#join-order-selection><h3 id=join-order-selection><span class=hanchor arialabel=Anchor># </span>Join Order Selection</h3></a><p>Many
+<a href=/site/Notes/Two-Pass-Algorithms/ rel=noopener class=internal-link data-src=/site/Notes/Two-Pass-Algorithms/></a> are asymmetric, the role played by the two argument relations are different and the cost depends on which relation plays which role.</p><ul><li>Build relation: the relation stored in main memory</li><li>Probe relation: relation which is read a block at a time to match the tuples in the build relation
+<em>Assumptions: the left argument is the build relation and the right argument is the probe relation</em>
+As the number of relations involved in the query increases, the number of possible join orders increases rapidly. We can use <em>join trees</em> to represent each of these possibilities:
+<img src=https://i.imgur.com/HEfAxlR.png width=auto alt></li></ul><a href=#left-deep-tree><h4 id=left-deep-tree><span class=hanchor arialabel=Anchor># </span>Left-deep tree</h4></a><p>It has a few advantages that make it a good default option:</p><ul><li>The number of possible left-deep trees with a given number of leaves is large, but not nearly as large as the number of all trees. Thus, searches for query plans can be used for larger queries if we limit the search to left-deep trees.</li><li>Left-deep trees for joins interact well with common join algorithms — nested-loop joins and one-pass joins in particular.</li><li>Intermediate results are not written to temporary files.
+Example from the above image:
+<em>Left-deep tree</em>:</li></ul><ol><li>Right children are the probe relations, we start building the join from the left leaf node R3</li><li>We keep R3 in main memory and perform R3 $\Join$ R1. This uses B(R) + B($R3\Join R1$) buffers</li><li>No need to keep R3 in main memory anymore, can use the space to store the result from B($R3\Join R1\Join R5$).
+<em>Right-deep tree</em>:</li><li>R3 is the build relation from the root, load R3 into memory</li><li>Need $R3\Join R1\Join R5\Join R2\Join R4$ as the probe relation. To compute this, we need R1 to be loaded into main memory to compute $R1\Join R5\Join R2\Join R4$ as the probe relation.</li><li>So on and so forth&mldr;
+The right-deep tree will require alot more space for the intermediate relations.</li></ol><a href=#join-algorithm-selection><h3 id=join-algorithm-selection><span class=hanchor arialabel=Anchor># </span>Join Algorithm Selection</h3></a><a href=#heuristics><h4 id=heuristics><span class=hanchor arialabel=Anchor># </span>Heuristics</h4></a><p><img src=https://i.imgur.com/BXJGc0o.png width=auto alt></p><a href=#dynamic-programming><h4 id=dynamic-programming><span class=hanchor arialabel=Anchor># </span>Dynamic Programming</h4></a><p>Since we are concerned about minimising the cost of the query plan, we can utilise
+<a href=/site/003-Dynamic-Programming/ rel=noopener class=internal-link data-src=/site/003-Dynamic-Programming/>DP</a> to remember the costs at each intermediate step for each enumeration. <strong>The cost is the size of the intermediate relation.</strong>
+Example:
+<img src=https://i.imgur.com/fVflcof.png width=auto alt>
+<img src=https://i.imgur.com/VzFz2K9.png width=auto alt=400>
+The cost for 2 relations is still 0, as no intermediate results are generated:
+<img src=https://i.imgur.com/gKWxzfs.png width=auto alt>
+There are $4\choose{3}$ ways to select 3 out of 4 of the relations. If we only consider left-deep trees, each option has $3\choose2$ permutations. We use the cost of the double relations to find the min cost of each permutation.
+<img src=https://i.imgur.com/NVT9vIg.png width=auto alt>
+Finally, when we consider all 4 relations, there are only 4 permutations if we only select left-deep trees. That is $4\choose2$$\times$ $2\choose1$. The first 4 rows represent these options:
+<img src=https://i.imgur.com/yTnb9Jx.png width=auto alt=400></p><a href=#practice-problems><h2 id=practice-problems><span class=hanchor arialabel=Anchor># </span>Practice Problems</h2></a><p><img src=https://i.imgur.com/dSCheOj.png width=auto alt>
+$$
+\begin{aligned}
+T(R\Join S)&=T(R)\times T(S)/max(V(R,a),V(S,a))
+\T(R_1\Join R_2\Join R_3) &=T(T(R_1\Join R_2)\Join R_3)
+\&=(1000\times1500/1100)\times750/100
+\&=10227.27
+\end{aligned}
+$$
+<img src=https://i.imgur.com/n4C5J07.png width=auto alt>
+$$
+\begin{align}
+\text{Size of Y}=20\times128&=2560B
+\B(Y) &=5
+\\ \text{Size of X}&=60\times64=3840B
+\B(X)&=7.5=8
+\\text{Nested loop join}&=5+(5/5-1)\times8=15
+\\text{Joined tuple size}&=128+64=192
+\\text{T(T)}&=20\text{(because b is key in X,there can be at most 20 matching values)}
+\\text{Write B(T) to disk: }&20/(512//192)=10
+\\text{Read B(T) for selection}=&10
+\\text{Block access for selection}&=0.5\times10=5
+\\text{Total Disk Access}&=15+10+10+5=40
+\end{align}
+$$
+<img src=https://i.imgur.com/J4jwXGW.png width=auto alt>
+a.</p><ol><li>Select movie with year > 1990 and rating = 10</li><li>Join Movie and Studio
+b.
+$$\begin{align}
+P(Year>1990)=1/3,P(Rating=10)=1/10
+\\text{Size after Select Movie}=\frac{1}{10\times3}\times 24000=800
+\\text{Size after Join}=T(M)\times T(S)/max(V(M,name),V(S,name))
+\=800\times1000/800=1000
+\end{align}
+$$
+<img src=https://i.imgur.com/D6ueV2a.png width=auto alt>
+<img src=https://i.imgur.com/yjTZKmm.png width=auto alt>
+i. $6000/20=300$
+ii. Tuples in $\sigma_{c>25}(S)=6000/3=2000$
+Tuples in $R\Join \sigma_{c>25}(S)=10000\times2000/200=100000$
+iii.
+Number of tuples of S which satisfy the condition: $\frac{2}{100}\times6000=120$
+These tuples will fit at best in $120/4=30$ blocks
+At worst, each key will take up additional 1 tuple block: $30+1+1=32$
+Number of block access to find the 2 keys: $2\times3=6$
+Total I/O: $32+6=38$
+iv.</li><li>Use $101-1=100$ buffers to repeatedly load blocks of R.</li><li>Join every block of S with these 100 blocks of R</li><li>Repeat until all blocks of R are loaded
+Cost: $1000+1500\times(1000/100)=16000$
+<img src=https://i.imgur.com/7z0WEN7.png width=auto alt>
+Left deep plans:
+$(Emp \Join_{Dno}Dept)\Join_{Job}Job$
+$(Dept \Join_{Dno}Job)\Join_{Job}Job$
+$(Emp \Join_{Job}Job)\Join_{Dno}Dept$
+$(Job \Join_{Job}Emp)\Join_{Dno}Dept$
+<img src=https://i.imgur.com/1PvbCHq.png width=auto alt>
+i. The join order for a set of relations can be built with the sub problem of the set of relations -1. Can use DP to store the information of the minimal cost of each set of relations.
+ii.<table><thead><tr><th>Relation</th><th>{A,B}</th><th>{A,C}</th><th>{A,D}</th><th>{B,C}</th><th>{B,D}</th><th>{C,D}</th></tr></thead><tbody><tr><td>Size</td><td>$1500\times1000/50=30000$</td><td>-</td><td>-</td><td>$1000\times2000/50=40000$</td><td>$1000\times1000/50=20000$</td><td>$2000\times1000/50=40000$</td></tr></tbody></table></li></ol><table><thead><tr><th>Relation</th><th>{A,B,C}</th><th>{A,B,D}</th><th>{B,C,D}</th></tr></thead><tbody><tr><td>Size</td><td>$30000\times2000/50=1,200,000$</td><td>$30000\times1000/50=600,000$</td><td>$40000\times1000/50=800,000$</td></tr><tr><td>Min Cost</td><td>(BC)A: 40000</td><td>(BD)A:20000</td><td>(BC)D</td></tr></tbody></table><table><thead><tr><th>Relation</th><th>{A,B,C,D}</th></tr></thead><tbody><tr><td>Size</td><td>$1,200,000\times1000/50=24,000,000$</td></tr><tr><td>Min Cost</td><td>(ABD)C: 600,000</td></tr></tbody></table><p>Final order: $((B\Join D)\Join A)\Join C$
+<img src=https://i.imgur.com/DFs3lGE.png width=auto alt>
+i.
+Selectivity on condition a: $B(R)/V(R,a)=1000/20=50$
+Selectivity on condition b: $T(R)/V(R,b)=5000/1000=5$
+Selectivity on condition c = 3: $T(R)/V(R,c)=5000/5000=1$
+Best query plan: select on condition c=3 -> b=2 -> a = 1
+Expected disk i/o : 1
+ii.
+Selectivity on condition c &lt; 3: $T(R)/3=5000/3=1666$
+Best query plan: select on condition b=2 -> a=1 -> c &lt; 3
+Expected disk i/o : 5
+<img src=https://i.imgur.com/3oMNPTP.png width=auto alt=400>
+<img src=https://i.imgur.com/RueI6DK.png width=auto alt>
+i.
+$$\begin{aligned}
+S\Join_{sid} R&=T(S)\times T(R)/max(V(S,sid),V(R,sid))
+\&=1000\times10000/1000=10,000
+\(S\Join_{sid}R)\Join_{bid}B&=10000\times100/100=10000
+\\sigma_{size>5 & \\ day=&rsquo;&rsquo;}&=10000/(3\times500)=6.66
+\end{aligned}$$
+ii.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>graph TB
+</span></span><span class=line><span class=cl>	J4((Join))--&gt;J5((Join))
+</span></span><span class=line><span class=cl>	J4--&gt;B2((B))
+</span></span><span class=line><span class=cl>	J5--&gt;R2((R))
+</span></span><span class=line><span class=cl>	J5--&gt;S((S))
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	J1((Join))--&gt;J2((Join))
+</span></span><span class=line><span class=cl>	J1--&gt;B1((B))
+</span></span><span class=line><span class=cl>	J2--&gt;S1((S))
+</span></span><span class=line><span class=cl>	J2--&gt;R1((R))
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	J6((Join))--&gt;J7((Join))
+</span></span><span class=line><span class=cl>	J6--&gt;S2((S))
+</span></span><span class=line><span class=cl>	J7--&gt;R3((R))
+</span></span><span class=line><span class=cl>	J7--&gt;B3((B))
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	J8((Join))--&gt;J9((Join))
+</span></span><span class=line><span class=cl>	J8--&gt;S3((S))
+</span></span><span class=line><span class=cl>	J9--&gt;B4((B))
+</span></span><span class=line><span class=cl>	J9--&gt;R4((R))
+</span></span></code></pre></td></tr></table></div></div><p>iii.
+For {R,S}:
+Hash join: $3(B_R+B_S)=3(250+50)=900$
+Sort merge join: $3(B_R+B_S)=3(250+50)=900$
+Block based NL join:
+R outer loop = $B_R+B_S\times B_R/(M-1)=250+50\times250/(50-1)=506$
+S outer loop = $B_S+B_R\times B_S/(M-1)=50+250\times50/(50-1)=306$</p><p>Blocked based NL join would work best
+<img src=https://i.imgur.com/wJCej3R.png width=auto alt>
+<img src=https://i.imgur.com/Y5ldYbY.png width=auto alt>
+$$
+\begin{aligned}
+IO(\sigma_{scity=Seattle})&=100
+\B(\sigma_{scity=Seattle})&=100/20=5
+\T(\sigma_{scity=Seattle})&=5\times20=100
+\IO(\sigma_{srank&lt;10})&=10
+\B(\sigma_{srank&lt;10})&=10/3=3.33\approx4
+\T(\sigma_{srank&lt;10})&=10/3=100/3\approx34
+\&\text{Sort-merge join in-memory:}
+\IO\Join_{sid=sid}&=0 \\ \text{(inputs are in memory)}
+\T(\Join_{sid=sid})&=100\times34/100=34
+\&\text{We can ignore the cost of the index lookup}
+\&\text{But we still need to access data pages for Major}
+\&\text{We assume each input tuple needs 1 Major page}
+\IO\Join_{id=id}&=34
+\\text{Total Cost}&=100+10+34=144
+\end{aligned}
+$$
+<img src=https://i.imgur.com/Q1rqC4H.png width=auto alt>
+i. $100/(3\times10)=3.33\approx4$
+ii.
+$P(b!=25)=9/10$
+$P(d!=13)=49/50$
+$100\times(1-\frac{9}{10}\times\frac{49}{50})=11.8\approx12$
+iii.
+$100\times500\times(\frac{1}{50}\times\frac{1}{100})=10$
+<img src=https://i.imgur.com/Xu30AOg.png width=auto alt>
+i.
+$(10\times30)+(40\times100)+(100\times200)/30=810$
+ii.
+$300\times600\times\frac{1}{30}=6000$
+<img src=https://i.imgur.com/mlIvxGp.png width=auto alt>
+<img src=https://i.imgur.com/dAO2I4e.png width=auto alt>
+$$
+\begin{align}
+&T(Student)=10,000
+\&IO(Student)=1000
+\&T(Checkout)=300,000
+\&IO(Checkout)=15,000
+\&T(\text{Nested Loop})=10,000\times300,000/10,000=300,000
+\&IO(\text{Nested Loop})=1000+1000\times15000=15,001,000
+\&T(Book)=50,000
+\&IO(Book)=5000
+\&T(\text{Tupled Based})=50000\times300,000/50,000=300,000
+\&IO(\text{Tupled based})=0 \text{ (inputs are in memory)}
+\&T(\sigma)=\frac{300,000}{500}\times\frac{20-12-1}{24-7}\approx234
+\end{align}
+$$
+<img src=https://i.imgur.com/zCqYH1T.png width=auto alt></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>graph TB;
+</span></span><span class=line><span class=cl>	J1--&gt;J2((Join S.b=T.b))
+</span></span><span class=line><span class=cl>	J1((Join R.b = S.b))--&gt;R
+</span></span><span class=line><span class=cl>	J2--&gt;J3((Join T.b = U.b))
+</span></span><span class=line><span class=cl>	J2--&gt;S
+</span></span><span class=line><span class=cl>	J3--&gt;T
+</span></span><span class=line><span class=cl>	J3--&gt;U
+</span></span></code></pre></td></tr></table></div></div></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/site/Notes/Query-Compiler/ data-ctx="Query Optimisation" data-src=/Notes/Query-Compiler class=internal-link>Query Compiler</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://bbawj.github.io/site/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Brendan Ang using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://bbawj.github.io/site/>Home</a></li><li><a href=https://github.com/bbawj>Github</a></li></ul></footer></div></div></body></html>
