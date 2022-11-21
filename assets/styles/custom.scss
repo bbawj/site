@@ -37,6 +37,10 @@
       gap: 4em;
     }
 
+    & > .section {
+      display: block
+    }
+
     & > .sidebar {
       flex: 0 0 30%;
 
