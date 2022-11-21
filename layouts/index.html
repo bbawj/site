@@ -4,16 +4,23 @@
 
 <body>
 {{partial "search.html" .}}
-<div class="singlePage">
+<div id="index" class="singlePage">
     <!-- Begin actual content -->
     {{partial "header.html" .}}
-    <article>
-        {{partial "toc.html" .}}
-        {{partial "textprocessing.html" . }}
+    {{partial "toc.html" .}}
+    <div class="bio">
         {{if $.Site.Data.config.enableRecentNotes}}
-          {{partial "recent.html" . }}
+        <div class="sidebar">
+          <h2>Recent Posts</h2>
+          {{partial "recent.html" (dict "context" . "folder" "Blog") }}
+          <h2>{{ i18n "recent_notes" }}</h2>
+          {{partial "recent.html" (dict "context" . "folder" "Notes") }}
+        </div>
         {{end}}
+    <article>
+    {{partial "textprocessing.html" . }}
     </article>
+    </div>
     {{partial "footerIndex.html" .}}
 </div>
 </body>

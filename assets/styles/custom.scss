@@ -25,5 +25,60 @@
   --outlinegray: #343434 !important;
 }
 
+#index {
+  & > .bio {
+    display: flex;
+    gap: 1.5em;
+    z-index: 1;
+    position: relative;
 
+    @media screen and (max-width: 1440px) {
+      flex-direction: column-reverse !important;
+      gap: 4em;
+    }
+
+    & > .sidebar {
+      flex: 0 0 30%;
+
+      & > div {
+        margin-bottom: 2em;
+      }
+
+      & ul {
+        list-style: none;
+        padding: 0;
+        margin-left: 0;
+        z-index: 0;
+      }
+
+      & > div > a {
+        opacity: 0.6;
+      }
+
+      & h2 {
+        font-size: 1.2rem;
+        margin: 0.75em 0;
+      }
+      
+      & .section {
+        display: block;
+        flex-direction: column;
+        margin-bottom: 1.2em;
+      }
+
+      & h3 {
+        margin: 0;
+      }
+
+      & .meta {
+        margin: 0.2em 0;
+      }
+
+      & .tags > li > a {
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+    }
+  }
+}
 
