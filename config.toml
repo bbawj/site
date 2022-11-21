@@ -4,7 +4,7 @@ googleAnalytics = ""
 relativeURLs = false
 disablePathToLower = true
 ignoreFiles = [
-    "/content/templates/*",
+    "/content/Templates/*",
     "/content/private/*",
 ]
 summaryLength = 20
