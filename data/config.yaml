@@ -12,14 +12,15 @@ enableContextualBacklinks: true
 enableRecentNotes: true
 enableGitHubEdit: true
 GitHubLink: https://github.com/bbawj/site
-enableSemanticSearch: false
-operandApiKey: "REPLACE-WITH-YOUR-OPERAND-API-KEY"
+enableMermaid: true
+search:
+  enableSemanticSearch: false
+  operandApiKey: "REPLACE-WITH-YOUR-OPERAND-API-KEY"
+  operandIndexId: "REPLACE-WITH-YOUR-OPERAND-INDEX-ID"
 description:
   A site.
 page_title:
   "Brendan Ang"
 links:
-  # - link_name: Twitter
-  #   link: https://twitter.com/_jzhao
   - link_name: Github
     link: https://github.com/bbawj
