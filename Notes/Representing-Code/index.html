@@ -1,0 +1,571 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="Representing Code Context Free Grammars (CFG) A formal grammar&rsquo;s job is to specify which strings are valid and invalid. If we were defining a grammar for English sentences, “eggs are tasty for breakfast” would be in the grammar, but “tasty breakfast for are eggs” would probably not."><title>Representing Code</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://www.brendanang.dev//icon.png><link href=https://www.brendanang.dev/styles.c6adaa3b473914a38283f492dfdbcb76.min.css rel=stylesheet><link href=https://www.brendanang.dev/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://www.brendanang.dev/js/darkmode.f4d43c22d05773345705b5a308888af6.min.js></script>
+<script src=https://www.brendanang.dev/js/util.fa8e74b4065b97e6980a72cc472e436f.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://www.brendanang.dev/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://www.brendanang.dev/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://www.brendanang.dev/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://www.brendanang.dev/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const SEARCH_ENABLED=!1,PRODUCTION=!0,BASE_URL="https://www.brendanang.dev/",fetchData=Promise.all([fetch("https://www.brendanang.dev/indices/linkIndex.ecfa414e1282826cc43a2473116a81b9.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://www.brendanang.dev/indices/contentIndex.d49fde9522c188996a6772cce3033c34.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://www.brendanang.dev",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!0;drawGraph("https://www.brendanang.dev",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}var i=document.getElementsByClassName("mermaid");i.length>0&&import("https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs").then(e=>{e.default.init()})},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/www.brendanang.dev\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://www.brendanang.dev/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://www.brendanang.dev/>Brendan Ang</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>Representing Code</h1><p class=meta>Last updated
+Apr 26, 2023
+<a href=https://github.com/bbawj/site/Notes/Representing%20Code.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#context-free-grammars-cfg>Context Free Grammars (CFG)</a><ol><li><a href=#defining-cfg>Defining CFG</a></li><li><a href=#our-own-cfg-grammar-notation>Our own CFG grammar notation</a></li></ol></li><li><a href=#abstract-syntax-tree>Abstract Syntax Tree</a><ol><li><a href=#implementation>Implementation</a></li></ol></li></ol><ol><li><a href=#precedence-and-associativity>Precedence and Associativity</a><ol><li><a href=#adding-ternary--operator>Adding ternary <code>?:</code> operator</a></li></ol></li><li><a href=#recursive-descent-parsing>Recursive Descent Parsing</a></li><li><a href=#error-handling>Error Handling</a><ol><li><a href=#panicking>Panicking</a></li><li><a href=#synchronisation>Synchronisation</a></li></ol></li><li><a href=#evaluatinginterpreting-expressions>Evaluating/Interpreting Expressions</a><ol><li><a href=#representing-values>Representing Values</a></li><li><a href=#evaluation-logic>Evaluation Logic</a></li></ol></li><li><a href=#statements>Statements</a><ol><li><a href=#supporting-global-variables>Supporting Global Variables</a></li><li><a href=#environments>Environments</a></li><li><a href=#assignment>Assignment</a></li></ol></li><li><a href=#scope>Scope</a><ol><li><a href=#nesting-and-shadowing>Nesting and shadowing</a></li><li><a href=#blocks>Blocks</a></li></ol></li></ol></nav></details></aside><a href=#representing-code><h1 id=representing-code><span class=hanchor arialabel=Anchor># </span>Representing Code</h1></a><a href=#context-free-grammars-cfg><h2 id=context-free-grammars-cfg><span class=hanchor arialabel=Anchor># </span>Context Free Grammars (CFG)</h2></a><p>A formal grammar&rsquo;s job is to specify which strings are valid and invalid. If we were defining a grammar for English sentences, “eggs are tasty for breakfast” would be in the grammar, but “tasty breakfast for are eggs” would probably not.
+<img src=https://i.imgur.com/CnhibtO.png width=auto alt></p><a href=#defining-cfg><h3 id=defining-cfg><span class=hanchor arialabel=Anchor># </span>Defining CFG</h3></a><p>A CFG production is defined with:</p><ul><li>head: a name</li><li>body: describing what it produces<ul><li>A <strong>terminal</strong> is a letter from the grammar’s alphabet. You can think of it like a literal value. In the syntactic grammar we’re defining, the terminals are individual lexemes—tokens coming from the scanner like <code>if</code> or <code>1234</code>.<ul><li>These are called “terminals”, in the sense of an “end point” because they don’t lead to any further “moves” in the game. You simply produce that one symbol.</li></ul></li><li>A <strong>nonterminal</strong> is a named reference to another rule in the grammar. It means “play that rule and insert whatever it produces here”. In this way, the grammar composes.</li></ul></li></ul><a href=#our-own-cfg-grammar-notation><h3 id=our-own-cfg-grammar-notation><span class=hanchor arialabel=Anchor># </span>Our own CFG grammar notation</h3></a><p>Breakfast menu grammar example:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>breakfast  → protein &#34;with&#34; breakfast &#34;on the side&#34; ;
+</span></span><span class=line><span class=cl>breakfast  → protein ;
+</span></span><span class=line><span class=cl>breakfast  → bread ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>protein    → crispiness &#34;crispy&#34; &#34;bacon&#34; ;
+</span></span><span class=line><span class=cl>protein    → &#34;sausage&#34; ;
+</span></span><span class=line><span class=cl>protein    → cooked &#34;eggs&#34; ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>crispiness → &#34;really&#34; ;
+</span></span><span class=line><span class=cl>crispiness → &#34;really&#34; crispiness ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>cooked     → &#34;scrambled&#34; ;
+</span></span><span class=line><span class=cl>cooked     → &#34;poached&#34; ;
+</span></span><span class=line><span class=cl>cooked     → &#34;fried&#34; ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>bread      → &#34;toast&#34; ;
+</span></span><span class=line><span class=cl>bread      → &#34;biscuits&#34; ;
+</span></span><span class=line><span class=cl>bread      → &#34;English muffin&#34; ;
+</span></span></code></pre></td></tr></table></div></div><p>Simplified with additional notation:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>breakfast → protein ( &#34;with&#34; breakfast &#34;on the side&#34; )?
+</span></span><span class=line><span class=cl>          | bread ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>protein   → &#34;really&#34;+ &#34;crispy&#34; &#34;bacon&#34;
+</span></span><span class=line><span class=cl>          | &#34;sausage&#34;
+</span></span><span class=line><span class=cl>          | ( &#34;scrambled&#34; | &#34;poached&#34; | &#34;fried&#34; ) &#34;eggs&#34; ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>bread     → &#34;toast&#34; | &#34;biscuits&#34; | &#34;English muffin&#34; ;
+</span></span></code></pre></td></tr></table></div></div><p>Applied to a programming language:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>expression     → literal
+</span></span><span class=line><span class=cl>               | unary
+</span></span><span class=line><span class=cl>               | binary
+</span></span><span class=line><span class=cl>               | grouping ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>literal        → NUMBER | STRING | &#34;true&#34; | &#34;false&#34; | &#34;nil&#34; ;
+</span></span><span class=line><span class=cl>grouping       → &#34;(&#34; expression &#34;)&#34; ;
+</span></span><span class=line><span class=cl>unary          → ( &#34;-&#34; | &#34;!&#34; ) expression ;
+</span></span><span class=line><span class=cl>binary         → expression operator expression ;
+</span></span><span class=line><span class=cl>operator       → &#34;<mark>&#34; | &#34;!=&#34; | &#34;&lt;&#34; | &#34;&lt;=&#34; | &#34;&gt;&#34; | &#34;&gt;=&#34;
+</span></span><span class=line><span class=cl>               | &#34;+&#34;  | &#34;-&#34;  | &#34;*&#34; | &#34;/&#34; ;
+</span></span></code></pre></td></tr></table></div></div><a href=#abstract-syntax-tree><h2 id=abstract-syntax-tree><span class=hanchor arialabel=Anchor># </span>Abstract Syntax Tree</h2></a><p>A data structure to represent language grammars.
+<img src=https://i.imgur.com/zTMePI4.png width=auto alt></p><a href=#implementation><h3 id=implementation><span class=hanchor arialabel=Anchor># </span>Implementation</h3></a><p><a href=/ rel=noopener class=internal-link data-src=/></a>We can use a base class <code>Expr</code> to hold the different expression types:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>abstract</span> <span class=kd>class</span> <span class=nc>Expr</span> <span class=o>{</span> 
+</span></span><span class=line><span class=cl>  <span class=kd>static</span> <span class=kd>class</span> <span class=nc>Binary</span> <span class=kd>extends</span> <span class=n>Expr</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Binary</span><span class=o>(</span><span class=n>Expr</span> <span class=n>left</span><span class=o>,</span> <span class=n>Token</span> <span class=n>operator</span><span class=o>,</span> <span class=n>Expr</span> <span class=n>right</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=o>.</span><span class=na>left</span> <span class=o>=</span> <span class=n>left</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=o>.</span><span class=na>operator</span> <span class=o>=</span> <span class=n>operator</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=o>.</span><span class=na>right</span> <span class=o>=</span> <span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>final</span> <span class=n>Expr</span> <span class=n>left</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>final</span> <span class=n>Token</span> <span class=n>operator</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>final</span> <span class=n>Expr</span> <span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// Other expressions...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#parsing-code><h1 id=parsing-code><span class=hanchor arialabel=Anchor># </span>Parsing Code</h1></a><p>The 2 jobs of a parser:</p><ol><li>Given a valid sequence of tokens, produce a corresponding syntax tree.</li><li>Given an <em>invalid</em> sequence of tokens, detect any errors and tell the user about their mistakes.</li></ol><a href=#precedence-and-associativity><h2 id=precedence-and-associativity><span class=hanchor arialabel=Anchor># </span>Precedence and Associativity</h2></a><p>Different expressions have different precedence and associativity rules.
+The C programming language rules with precedence from top to bottom:
+<img src=https://i.imgur.com/eaRjO5S.png width=auto alt></p><p>Applying the rules to our grammar notation:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>expression     → equality ;
+</span></span><span class=line><span class=cl>equality       → comparison ( ( &#34;!=&#34; | &#34;</mark>&#34; ) comparison )* ;
+</span></span><span class=line><span class=cl>comparison     → term ( ( &#34;&gt;&#34; | &#34;&gt;=&#34; | &#34;&lt;&#34; | &#34;&lt;=&#34; ) term )* ;
+</span></span><span class=line><span class=cl>term           → factor ( ( &#34;-&#34; | &#34;+&#34; ) factor )* ;
+</span></span><span class=line><span class=cl>factor         → unary ( ( &#34;/&#34; | &#34;*&#34; ) unary )* ;
+</span></span><span class=line><span class=cl>unary          → ( &#34;!&#34; | &#34;-&#34; ) unary
+</span></span><span class=line><span class=cl>               | primary ;
+</span></span><span class=line><span class=cl>primary        → NUMBER | STRING | &#34;true&#34; | &#34;false&#34; | &#34;nil&#34;
+</span></span><span class=line><span class=cl>               | &#34;(&#34; expression &#34;)&#34; ;
+</span></span></code></pre></td></tr></table></div></div><p>Each lower precedence expression matches internally to a higher precedence expression. For example, <code>equality</code> can either match an equality expression like <code>a <mark>b</code>, or for an expression like <code>a >= b</code>, it calls the matching rule for <code>comparison</code>.</p><a href=#adding-ternary--operator><h3 id=adding-ternary--operator><span class=hanchor arialabel=Anchor># </span>Adding ternary <code>?:</code> operator</h3></a><p>The ternary operator should have lowest precedence.
+<code>conditional -> equality ("?" expression ":" equality)?</code></p><a href=#recursive-descent-parsing><h2 id=recursive-descent-parsing><span class=hanchor arialabel=Anchor># </span>Recursive Descent Parsing</h2></a><p>A <strong>top-down parser</strong> starting from the top or outermost grammar rule (here <code>expression</code>) and working its way down into the nested subexpressions before finally reaching the leaves of the syntax tree. This is in contrast with bottom-up parsers like LR that start with primary expressions and compose them into larger and larger chunks of syntax.
+<img src=https://i.imgur.com/NsnrDsm.png width=auto alt></p><p>Translating the
+<a href=/Notes/Representing-Code/ rel=noopener class=internal-link data-src=/Notes/Representing-Code/>grammar rules</a> into code maps nicely into recursive function calls:
+<code>equality → comparison ( ( "!=" | "</mark>" ) comparison )* ;</code>
+is</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span> <span class=n>Expr</span> <span class=nf>equality</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Expr</span> <span class=n>expr</span> <span class=o>=</span> <span class=n>comparison</span><span class=o>();</span> <span class=c1>// the left operand
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=o>(</span><span class=n>match</span><span class=o>(</span><span class=n>BANG_EQUAL</span><span class=o>,</span> <span class=n>EQUAL_EQUAL</span><span class=o>))</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>Token</span> <span class=n>operator</span> <span class=o>=</span> <span class=n>previous</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>      <span class=n>Expr</span> <span class=n>right</span> <span class=o>=</span> <span class=n>comparison</span><span class=o>();</span> <span class=c1>// the right operand
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=n>expr</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Expr</span><span class=o>.</span><span class=na>Binary</span><span class=o>(</span><span class=n>expr</span><span class=o>,</span> <span class=n>operator</span><span class=o>,</span> <span class=n>right</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>expr</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#error-handling><h2 id=error-handling><span class=hanchor arialabel=Anchor># </span>Error Handling</h2></a><a href=#panicking><h3 id=panicking><span class=hanchor arialabel=Anchor># </span>Panicking</h3></a><p>As soon as the parser detects an error, it enters panic mode. It knows at least one token doesn’t make sense given its current state in the middle of some stack of grammar productions.</p><p>Languages like Java allows us to throw an exception.</p><a href=#synchronisation><h3 id=synchronisation><span class=hanchor arialabel=Anchor># </span>Synchronisation</h3></a><p>Before it can get back to parsing, it needs to get its state and the sequence of forthcoming tokens aligned such that the next token does match the rule being parsed.</p><p>We want to discard tokens until we are at the beginning of the next statement. That boundary is usually after semicolons or before keywords like <code>if</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span> <span class=kt>void</span> <span class=nf>synchronize</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>advance</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=o>(!</span><span class=n>isAtEnd</span><span class=o>())</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=o>(</span><span class=n>previous</span><span class=o>().</span><span class=na>type</span> <span class=o>==</span> <span class=n>SEMICOLON</span><span class=o>)</span> <span class=k>return</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=k>switch</span> <span class=o>(</span><span class=n>peek</span><span class=o>().</span><span class=na>type</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>CLASS</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>FUN</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>VAR</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>FOR</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>IF</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>WHILE</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>PRINT</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=n>RETURN</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>          <span class=k>return</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=n>advance</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#evaluatinginterpreting-expressions><h2 id=evaluatinginterpreting-expressions><span class=hanchor arialabel=Anchor># </span>Evaluating/Interpreting Expressions</h2></a><p>To “execute” code, we will evaluate an expression and produce a value. For each kind of expression syntax we can parse—literal, operator, etc.—we need a corresponding chunk of code that knows how to evaluate that tree and produce a result.</p><a href=#representing-values><h3 id=representing-values><span class=hanchor arialabel=Anchor># </span>Representing Values</h3></a><p>Bridge the logic between the language and the underlying implementing language.
+An example in Java:
+<img src=https://www.brendanang.dev//Pics/Pasted%20image%2020230427234412.png width=auto alt></p><a href=#evaluation-logic><h3 id=evaluation-logic><span class=hanchor arialabel=Anchor># </span>Evaluation Logic</h3></a><p>Make use of the
+<a href=/Notes/Visitor-Pattern/ rel=noopener class=internal-link data-src=/Notes/Visitor-Pattern/>Visitor Pattern</a> to apply interpreter logic on each of the expression types.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>class</span> <span class=nc>Interpreter</span> <span class=kd>implements</span> <span class=n>Expr</span><span class=o>.</span><span class=na>Visitor</span><span class=o>&lt;</span><span class=n>Object</span><span class=o>&gt;</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=nd>@Override</span>
+</span></span><span class=line><span class=cl>  <span class=kd>public</span> <span class=n>Object</span> <span class=nf>visitBinaryExpr</span><span class=o>(</span><span class=n>Expr</span><span class=o>.</span><span class=na>Binary</span> <span class=n>expr</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Object</span> <span class=n>left</span> <span class=o>=</span> <span class=n>evaluate</span><span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>left</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>Object</span> <span class=n>right</span> <span class=o>=</span> <span class=n>evaluate</span><span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>right</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>switch</span> <span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>operator</span><span class=o>.</span><span class=na>type</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>	<span class=o>...</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=n>LESS</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>left</span> <span class=o>&lt;</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=n>LESS_EQUAL</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>left</span> <span class=o>&lt;=</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=n>MINUS</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>left</span> <span class=o>-</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=n>PLUS</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=o>(</span><span class=n>left</span> <span class=k>instanceof</span> <span class=n>Double</span> <span class=o>&amp;&amp;</span> <span class=n>right</span> <span class=k>instanceof</span> <span class=n>Double</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>left</span> <span class=o>+</span> <span class=o>(</span><span class=kt>double</span><span class=o>)</span><span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=o>(</span><span class=n>left</span> <span class=k>instanceof</span> <span class=n>String</span> <span class=o>&amp;&amp;</span> <span class=n>right</span> <span class=k>instanceof</span> <span class=n>String</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=o>(</span><span class=n>String</span><span class=o>)</span><span class=n>left</span> <span class=o>+</span> <span class=o>(</span><span class=n>String</span><span class=o>)</span><span class=n>right</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Unreachable.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=kc>null</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#statements><h2 id=statements><span class=hanchor arialabel=Anchor># </span>Statements</h2></a><p>Statements do not produce a value, they need to create a side effect.</p><p>2 examples:</p><ol><li>An <strong>expression statement</strong> lets you place an expression where a statement is expected. They exist to evaluate expressions that have side effects. <code>method();</code></li><li>A <strong><code>print</code> statement</strong> evaluates an expression and displays the result to the user.
+Adding statements to grammar rules:</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>program        → statement* EOF ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>statement      → exprStmt
+</span></span><span class=line><span class=cl>               | printStmt ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>exprStmt       → expression &#34;;&#34; ;
+</span></span><span class=line><span class=cl>printStmt      → &#34;print&#34; expression &#34;;&#34; ;
+</span></span></code></pre></td></tr></table></div></div><a href=#supporting-global-variables><h3 id=supporting-global-variables><span class=hanchor arialabel=Anchor># </span>Supporting Global Variables</h3></a><a href=#variable-declaration><h4 id=variable-declaration><span class=hanchor arialabel=Anchor># </span>Variable declaration</h4></a><p>Variable declarations are statements but may be restricted to only be allowed in certain cases.
+<code>if (monday) var beverage = "espresso";</code> is weird. What is the scope of that <code>beverage</code> variable? Does it persist after the <code>if</code> statement? If so, what is its value on days other than Monday? Does the variable exist at all on those days?</p><p>Updating the grammar rules:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>program        → declaration* EOF ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>declaration    → varDecl
+</span></span><span class=line><span class=cl>               | statement ;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>statement      → exprStmt
+</span></span><span class=line><span class=cl>               | printStmt ;
+</span></span><span class=line><span class=cl>			   
+</span></span><span class=line><span class=cl>varDecl        → &#34;var&#34; IDENTIFIER ( &#34;=&#34; expression )? &#34;;&#34; ;
+</span></span><span class=line><span class=cl>...
+</span></span></code></pre></td></tr></table></div></div><p>The equivalent matching
+<a rel=noopener class="internal-link broken" data-src=#Recursive%20Descent%20Parsing>Recursive Descent Parsing</a> code in Java:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span> <span class=n>Stmt</span> <span class=nf>declaration</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=o>(</span><span class=n>match</span><span class=o>(</span><span class=n>VAR</span><span class=o>))</span> <span class=k>return</span> <span class=n>varDeclaration</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=n>statement</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>ParseError</span> <span class=n>error</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>synchronize</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=kc>null</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=kd>private</span> <span class=n>Stmt</span> <span class=nf>varDeclaration</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Token</span> <span class=n>name</span> <span class=o>=</span> <span class=n>consume</span><span class=o>(</span><span class=n>IDENTIFIER</span><span class=o>,</span> <span class=s>&#34;Expect variable name.&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Expr</span> <span class=n>initializer</span> <span class=o>=</span> <span class=kc>null</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>(</span><span class=n>match</span><span class=o>(</span><span class=n>EQUAL</span><span class=o>))</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>initializer</span> <span class=o>=</span> <span class=n>expression</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>consume</span><span class=o>(</span><span class=n>SEMICOLON</span><span class=o>,</span> <span class=s>&#34;Expect &#39;;&#39; after variable declaration.&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=n>Stmt</span><span class=o>.</span><span class=na>Var</span><span class=o>(</span><span class=n>name</span><span class=o>,</span> <span class=n>initializer</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#variable-expressions><h4 id=variable-expressions><span class=hanchor arialabel=Anchor># </span>Variable Expressions</h4></a><p>A variable expression accesses the binding made in declaration and returns it.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>primary        → &#34;true&#34; | &#34;false&#34; | &#34;nil&#34;
+</span></span><span class=line><span class=cl>               | NUMBER | STRING
+</span></span><span class=line><span class=cl>               | &#34;(&#34; expression &#34;)&#34;
+</span></span><span class=line><span class=cl>               | IDENTIFIER ;
+</span></span></code></pre></td></tr></table></div></div><p>We update the primary expression to match an <code>IDENTIFIER</code> type, which corresponds to the name of the variable.</p><a href=#environments><h3 id=environments><span class=hanchor arialabel=Anchor># </span>Environments</h3></a><p>The environment is a data structure used to store the bindings between variables and values.
+<img src=https://i.imgur.com/tag2o9N.png width=auto alt>
+You can think of it like a map where the keys are variable names and the values are the variable’s, uh, values.</p><p>Implemented in Java uses a HashMap:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>class</span> <span class=nc>Environment</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=kd>private</span> <span class=kd>final</span> <span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=o>,</span> <span class=n>Object</span><span class=o>&gt;</span> <span class=n>values</span> <span class=o>=</span> <span class=k>new</span> <span class=n>HashMap</span><span class=o>&lt;&gt;();</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=nf>define</span><span class=o>(</span><span class=n>String</span> <span class=n>name</span><span class=o>,</span> <span class=n>Object</span> <span class=n>value</span><span class=o>)</span> <span class=o>{</span> <span class=n>values</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=n>name</span><span class=o>,</span> <span class=n>value</span><span class=o>);</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>Object</span> <span class=nf>get</span><span class=o>(</span><span class=n>Token</span> <span class=n>name</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>(</span><span class=n>values</span><span class=o>.</span><span class=na>containsKey</span><span class=o>(</span><span class=n>name</span><span class=o>.</span><span class=na>lexeme</span><span class=o>))</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=n>values</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=n>name</span><span class=o>.</span><span class=na>lexeme</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>throw</span> <span class=k>new</span> <span class=n>RuntimeError</span><span class=o>(</span><span class=n>name</span><span class=o>,</span> <span class=s>&#34;Undefined variable &#39;&#34;</span> <span class=o>+</span> <span class=n>name</span><span class=o>.</span><span class=na>lexeme</span> <span class=o>+</span> <span class=s>&#34;&#39;.&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>define()</code>: this implementation allows for redefinitions like:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>var a = 1;
+</span></span><span class=line><span class=cl>print a;
+</span></span><span class=line><span class=cl>var a = 2;
+</span></span></code></pre></td></tr></table></div></div><p>This may not be what we want to allow because the user might not intend to redefine an existing variable, of which <em>assignment</em> should be used.</p><p><code>get()</code>: the implementation decision made here is to throw a Runtime error if the identifier does not exist. If a static error is thrown instead (meaning the error is detected during parsing and not during interpreting/evaluation), we would not allow users to reference identifiers before they exist:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>isOdd</span><span class=o>(){</span>
+</span></span><span class=line><span class=cl>	<span class=n>isEven</span><span class=o>();</span> <span class=c1>// syntax error
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=n>isEven</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>isOdd</span><span class=o>();</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#interpreting-variables><h4 id=interpreting-variables><span class=hanchor arialabel=Anchor># </span>Interpreting Variables</h4></a><p>We allow accessing a variable before initializing. In that case, we should return nil, the code below sets nil as the default value in the environment.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl>  <span class=kd>public</span> <span class=n>Void</span> <span class=nf>visitVarStmt</span><span class=o>(</span><span class=n>Stmt</span><span class=o>.</span><span class=na>Var</span> <span class=n>stmt</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Object</span> <span class=n>value</span> <span class=o>=</span> <span class=kc>null</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>(</span><span class=n>stmt</span><span class=o>.</span><span class=na>initializer</span> <span class=o>!=</span> <span class=kc>null</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>value</span> <span class=o>=</span> <span class=n>evaluate</span><span class=o>(</span><span class=n>stmt</span><span class=o>.</span><span class=na>initializer</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>environment</span><span class=o>.</span><span class=na>define</span><span class=o>(</span><span class=n>stmt</span><span class=o>.</span><span class=na>name</span><span class=o>.</span><span class=na>lexeme</span><span class=o>,</span> <span class=n>value</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>null</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Interpreting variable expressions is a simple environment access:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl>  <span class=kd>public</span> <span class=n>Object</span> <span class=nf>visitVariableExpr</span><span class=o>(</span><span class=n>Expr</span><span class=o>.</span><span class=na>Variable</span> <span class=n>expr</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>environment</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>name</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#assignment><h3 id=assignment><span class=hanchor arialabel=Anchor># </span>Assignment</h3></a><p>An assignment is either an identifier followed by an = and an expression for the value, or an equality (and thus any other) expression.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>expression     → assignment ;
+</span></span><span class=line><span class=cl>assignment     → IDENTIFIER &#34;=&#34; assignment
+</span></span><span class=line><span class=cl>               | equality ;
+</span></span></code></pre></td></tr></table></div></div><p>A single token lookahead recursive descent parser can’t see far enough to tell that it’s parsing an assignment until after it has gone through the left-hand side and stumbled onto the <code>=</code>. Why does it matter? After all, we do not care about it for operators like <code>+</code> anyway.</p><a href=#l-value-and-r-value><h4 id=l-value-and-r-value><span class=hanchor arialabel=Anchor># </span>L-value and R-value</h4></a><p>An assignment is different because the left operand does not evaluate to any value. It only evaluates to a storage location to assign to, an <em>l-value</em>. Expressions like <code>+</code> produce only <em>r-values</em>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>var a = &#34;before&#34;;
+</span></span><span class=line><span class=cl>a = &#34;value&#34;;
+</span></span></code></pre></td></tr></table></div></div><p>In this case, we do not want to evaluate &ldquo;a&rdquo; (which returns &ldquo;before&rdquo;).</p><p>We can parse the left side as though it is an expression. Only if we reach a <code>=</code>, we wrap the entire thing in a assignment expression:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span> <span class=n>Expr</span> <span class=nf>assignment</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Expr</span> <span class=n>expr</span> <span class=o>=</span> <span class=n>equality</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>(</span><span class=n>match</span><span class=o>(</span><span class=n>EQUAL</span><span class=o>))</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>Token</span> <span class=n>equals</span> <span class=o>=</span> <span class=n>previous</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>      <span class=n>Expr</span> <span class=n>value</span> <span class=o>=</span> <span class=n>assignment</span><span class=o>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=o>(</span><span class=n>expr</span> <span class=k>instanceof</span> <span class=n>Expr</span><span class=o>.</span><span class=na>Variable</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>Token</span> <span class=n>name</span> <span class=o>=</span> <span class=o>((</span><span class=n>Expr</span><span class=o>.</span><span class=na>Variable</span><span class=o>)</span><span class=n>expr</span><span class=o>).</span><span class=na>name</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>Expr</span><span class=o>.</span><span class=na>Assign</span><span class=o>(</span><span class=n>name</span><span class=o>,</span> <span class=n>value</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=n>error</span><span class=o>(</span><span class=n>equals</span><span class=o>,</span> <span class=s>&#34;Invalid assignment target.&#34;</span><span class=o>);</span> 
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>expr</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>At the same time, if the left side is not a valid assignment target (aka not a variable in this case), we throw an error.</p><a href=#interpreting><h4 id=interpreting><span class=hanchor arialabel=Anchor># </span>Interpreting</h4></a><p>Use an assign method which inserts into the environment only if the identifier exists, else throw a runtime error:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span> <span class=n>Object</span> <span class=nf>visitAssignExpr</span><span class=o>(</span><span class=n>Expr</span><span class=o>.</span><span class=na>Assign</span> <span class=n>expr</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Object</span> <span class=n>value</span> <span class=o>=</span> <span class=n>evaluate</span><span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>value</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>environment</span><span class=o>.</span><span class=na>assign</span><span class=o>(</span><span class=n>expr</span><span class=o>.</span><span class=na>name</span><span class=o>,</span> <span class=n>value</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>value</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#scope><h2 id=scope><span class=hanchor arialabel=Anchor># </span>Scope</h2></a><p><em>Lexical scope</em>: the text of the program itself shows where a scope begins and ends, i.e. uses stuff like &ldquo;{ }&rdquo;, <em>also called block scope</em>.
+<em>Dynamic scope</em>: where you don’t know what a name refers to until you execute the code:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>class</span> <span class=nc>Saxophone</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>play</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>print</span> <span class=s>&#34;Careless Whisper&#34;</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>class</span> <span class=nc>GolfClub</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>play</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>print</span> <span class=s>&#34;Fore!&#34;</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>fun</span> <span class=nf>playIt</span><span class=o>(</span><span class=n>thing</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>thing</span><span class=o>.</span><span class=na>play</span><span class=o>();</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#nesting-and-shadowing><h3 id=nesting-and-shadowing><span class=hanchor arialabel=Anchor># </span>Nesting and shadowing</h3></a><p>When a local variable has the same name as a variable in an enclosing scope, it <strong>shadows</strong> the outer one. Code inside the block can’t see it any more—it is hidden in the “shadow” cast by the inner one—but it’s still there.</p><p>When we enter a new block scope, we need to preserve variables defined in outer scopes so they are still around when we exit the inner block.</p><ul><li>Define a fresh environment for each block containing only the variables defined in that scope.</li><li>When we exit the block, we discard its environment and restore the previous one.</li><li>Chain the environments together. Each environment has a reference to the environment of the immediately enclosing scope. When we look up a variable, we walk that chain from innermost out until we find the variable.</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>class</span> <span class=nc>Environment</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>  <span class=kd>final</span> <span class=n>Environment</span> <span class=n>enclosing</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kd>private</span> <span class=kd>final</span> <span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=o>,</span> <span class=n>Object</span><span class=o>&gt;</span> <span class=n>values</span> <span class=o>=</span> <span class=k>new</span> <span class=n>HashMap</span><span class=o>&lt;&gt;();</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#blocks><h3 id=blocks><span class=hanchor arialabel=Anchor># </span>Blocks</h3></a><a href=#syntax><h4 id=syntax><span class=hanchor arialabel=Anchor># </span>Syntax</h4></a><p>A block is a series of statements or declarations surrounded by curly braces:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=n>statement</span>      <span class=err>→</span> <span class=n>exprStmt</span>
+</span></span><span class=line><span class=cl>               <span class=o>|</span> <span class=n>printStmt</span>
+</span></span><span class=line><span class=cl>               <span class=o>|</span> <span class=n>block</span> <span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>block</span>          <span class=err>→</span> <span class=s>&#34;{&#34;</span> <span class=n>declaration</span><span class=o>*</span> <span class=s>&#34;}&#34;</span> <span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>It contains a list of statements.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span> <span class=n>List</span><span class=o>&lt;</span><span class=n>Stmt</span><span class=o>&gt;</span> <span class=nf>block</span><span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>List</span><span class=o>&lt;</span><span class=n>Stmt</span><span class=o>&gt;</span> <span class=n>statements</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ArrayList</span><span class=o>&lt;&gt;();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=o>(!</span><span class=n>check</span><span class=o>(</span><span class=n>RIGHT_BRACE</span><span class=o>)</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=n>isAtEnd</span><span class=o>())</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>statements</span><span class=o>.</span><span class=na>add</span><span class=o>(</span><span class=n>declaration</span><span class=o>());</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>consume</span><span class=o>(</span><span class=n>RIGHT_BRACE</span><span class=o>,</span> <span class=s>&#34;Expect &#39;}&#39; after block.&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>statements</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#semantics><h4 id=semantics><span class=hanchor arialabel=Anchor># </span>Semantics</h4></a><p>When we encounter a block statement, we create a new environment with the current environment and pass it into a function like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kt>void</span> <span class=nf>executeBlock</span><span class=o>(</span><span class=n>List</span><span class=o>&lt;</span><span class=n>Stmt</span><span class=o>&gt;</span> <span class=n>statements</span><span class=o>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>Environment</span> <span class=n>environment</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Environment</span> <span class=n>previous</span> <span class=o>=</span> <span class=k>this</span><span class=o>.</span><span class=na>environment</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=o>.</span><span class=na>environment</span> <span class=o>=</span> <span class=n>environment</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=k>for</span> <span class=o>(</span><span class=n>Stmt</span> <span class=n>statement</span> <span class=o>:</span> <span class=n>statements</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>execute</span><span class=o>(</span><span class=n>statement</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>      <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>this</span><span class=o>.</span><span class=na>environment</span> <span class=o>=</span> <span class=n>previous</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li><a href=/Notes/Crafting-Interpreters/ data-ctx="Abstract Syntax Tree" data-src=/Notes/Crafting-Interpreters class=internal-link>Crafting Interpreters</a></li><li><a href=/Notes/Representing-Code/ data-ctx="grammar rules" data-src=/Notes/Representing-Code class=internal-link>Representing Code</a></li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://www.brendanang.dev/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Brendan Ang using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2023</p><ul><li><a href=https://www.brendanang.dev/>Home</a></li><li><a href=https://github.com/bbawj>Github</a></li></ul></footer></div></div></body></html>
