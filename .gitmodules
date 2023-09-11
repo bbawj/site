@@ -1,4 +1,3 @@
 [submodule "content"]
 	path = content
-	url = https://github.com/bbawj/NoteVault
-	branch = main
+	url = https://github.com/bbawj/note-vault
