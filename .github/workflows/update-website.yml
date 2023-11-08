@@ -18,12 +18,14 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         path: ${{ github.sha }}
+        submodules: true
+        repository: bbawj/site
 
     # Update references
     - name: Git Sumbodule Update
       run: |
         git pull --recurse-submodules
-        git submodule update --remote --recursive
+        git submodule update --remote
 
     - name: Commit update
       run: |
