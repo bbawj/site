@@ -1,0 +1,5 @@
+# Learnings
+
+While trying to develop with the open source toolchains, I faced an issue in simulation. In particular, to use the Lattice vendor IPs such as the ECP5 PLL, there are some non-obvious steps to me:
+- Download the Lattice Diamond software. This provides access to the simulation libraries for their IP located at : `$INSTALL_PATH/diamond/3.14/cae_library/simulation/verilog/<ecp5u | or your device here>/`
+- tell icarus verilog where to find these libraries with the `-y` flag.
